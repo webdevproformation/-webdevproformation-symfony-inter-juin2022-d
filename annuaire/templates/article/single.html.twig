@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<main class="container">
+    <h1>{{ article.titre }}</h1>
+    <section class="row">
+            <article class="col-12">
+                <p>{{ article.contenu }}</p>
+                <p>écrit par : {{ article.auteur.nom }}</p>
+            </article>
+    </section>
+    <hr>
+    <section>
+        <h2>Ajouter un commentaire : </h2>
+        {{ form(formCommentaire) }}
+    </section>
+    <hr>
+    <section>
+        <h2>Liste des commentaires :</h2>
+        <div class="row">
+            {% for commentaire in article.commentaires %}
+                <div class="col-2">
+                    publié par : {{ commentaire.email }}
+                </div>
+                <div class="col-10">
+                    {{  commentaire.contenu }}
+                </div>
+            {% else %}
+                <p> pas de commentaire pour l'instant</p>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+
+{% endblock %}

@@ -44,3 +44,61 @@ UN article ne peut petre créer que par UN Auteur ManyToOne
 
 => formulaire qui va permettre créer un article pour un auteurs
 => créer un auteur de l'auteur 1 , 2 ....
+
+-------------------
+
+associer à notre Entite Article => une liaison vers l'auteur 
+
+php bin/console make:form 
+
+
+créer une entité Auteur OneToMany( targetEntity:Article::class)
+créer une entité Article ManyToOne( targetEntity:Auteur::class)
+associées l'un à l'autre 
+
+// regenerer le setter et getter symfony console make:entity --regenerate => yes
+// refaire une migration symfony console make:migration
+// exécuter la migration symfony console doctrine:migrations:migrate => yes
+
+
+// créer un formulaire pour Article 
+symfony console make:form ArticleType
+
+$builder
+    ->add('titre')
+    ->add('contenu')
+    ->add('auteur', EntityType::class , [ // OBLIGATOIRE vous devez le préciser
+        "class" => Auteur::class, // préciser l'entité associée
+        "choice_label" => "nom"      // préciser la colonne qui va servir dans le menu déroulant
+        // mettre à jour les setter et getter (mis manuellement)
+        // php bin/console make:entity --regenerate
+    ])
+
+// le code est le même avec ou sans relation
+// controller et vue => c'est la même chose !!!! 
+
+Possible de créer des auteurs et des articles (associé à un auteur)
+
+----------------------------------
+
+Afficher tous les articles quelque soit d'auteur 
+
+=> ArticleController
+
+---------------------
+
+cas pratique 
+
+Créer une nouvelle Entité => Categorie
+
+libelle  text qui va avoir au maximum 10 lettres au minimum 2 lettres 
+dt_creation date => ajoutée au moment où le catégorie va être créées
+
+associée à Article 
+Une catégorie peut être associée à Plusieurs articles
+un article n'a 1 seule catégorie 
+
+
+mettre à jour la structure des tables dans la base de données 
+
+

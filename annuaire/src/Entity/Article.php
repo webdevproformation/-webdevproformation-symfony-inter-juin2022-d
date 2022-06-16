@@ -29,6 +29,9 @@ class Article
     #[ORM\OneToMany(targetEntity:Commentaire::class, mappedBy:"article")]
     private $commentaires;
 
+    #[ORM\ManyToOne(targetEntity:Categorie::class, inversedBy:"articles")]
+    private $categorie;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -89,6 +92,30 @@ class Article
                 $commentaire->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Auteur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Auteur $auteur): self
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
