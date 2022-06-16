@@ -1,0 +1,46 @@
+{% extends "front.html.twig" %}
+{% block titre %} gestion des catégories {% endblock %}
+{% block body %}
+<main class="container">
+    <h1>Gestion des catégories</h1>
+
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success my-3">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('erreur') %}
+        <div class="alert alert-danger my-3">{{ message }}</div>
+    {% endfor %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width:10%">#id</th>
+                <th style="width:20%">#nom</th>
+                <th style="width:50%">#description</th>
+                <th style="width:20%">#action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.id }}</td>
+                <td>{{ categorie.nom }}</td>
+                <td>{{ categorie.description }}</td>
+                <td>
+                    <a href="{{ path( "categorie_update" , { "id" : categorie.id } )}}" class="btn btn-warning">modifier</a>
+                    <a href="{{ path( "categorie_suppr" , { "id" : categorie.id } )}}" class="ms-3 btn btn-danger">supprimer</a>
+                    {# tableau à écrire en twig => json { "clé" : "valeur" , "id" : categorie.id } #}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colSpan="4">
+                    Aucune catégorie pour l'instant
+                    <a href="{{ path("categorie_new") }}" class="btn btn-success">créer une première catégorie</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock %}

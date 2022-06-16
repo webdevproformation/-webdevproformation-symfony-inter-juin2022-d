@@ -1,0 +1,27 @@
+{%  extends "front.html.twig" %}
+
+{% block titre %} Accueil {% endblock %}
+
+{% block body %}
+<main class="row">
+        {% for info in app.flashes("message")%}
+            <div class="col-12 alert alert-success my-3">{{ info }}</div>
+        {% endfor %}
+        {% for article in articles %}
+       
+        <article class="col-3 border mt-3">
+            <div class="my-3">
+                <a href="{{ path("home_modif" , { "id" : article.id }) }}" class="btn-info btn" >modifier</a>
+                <a href="{{ path("home_suppr" , { "id" : article.id }) }}" class="btn btn-danger">supprimer</a>
+            </div>
+            <h2>{{ article.titre }}</h2>
+            <p>{{ article.contenu }}</p>
+            <ul>
+                <li> date de création  : {{ article.dtCreation | date("d/m/Y") }}</li>
+            </ul>
+        </article>
+       
+    {% endfor %}
+</main>
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{%  extends "front.html.twig" %}
+{% block titre %} créer un nouvel article {% endblock %}
+{% block body %}
+<main class="row">
+       <h1>créer un nouvel article</h1>
+       <form method="POST">
+        <div class="mb-3">
+            <label for="titre">titre</label>
+            <input type="text" id="titre" name="titre" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="contenu">contenu</label>
+            <textarea name="contenu" id="contenu" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+        <div class="mb-3 form-check">
+            <label for="publie">publie
+                <input type="checkbox" id="publie" class="form-check-input">
+            </label>
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-primary">
+        </div>
+       </form>
+</main>
+{% endblock %}
+

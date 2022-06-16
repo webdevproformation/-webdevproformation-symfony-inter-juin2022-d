@@ -1,0 +1,39 @@
+créer une nouvelle entité Etudiant 
+
+nom chaine de caractère de 200
+age chiffre entier 
+adresse chaine de caractère de 200
+etat boolean
+telephone   chaine de caractère de 200
+email chaine de caractère de 200
+date_naissance date 
+
+symfony console make:entity
+
+créer et d'ajouter des champs 
+modifier => manuelle 
+
+symfony console make:entity --regenerate setter et getter manquant
+
+symfony console make:migration
+
+symfony console doctrine:migrations:migrate
+
+------------------
+
+créer un formulaire et l'afficher dans le navigateur 
+
+symfony console make:form
+
+
+------------------
+
+mettre en place des validations : 
+- nom minimum 5 lettres
+- age chiffre positif et maximum 100
+- adresse minimum 5 lettres 
+- téléphone chaine de caractères qui contient que des chiffres
+- email valide
+- date_naissance date valide
+
+

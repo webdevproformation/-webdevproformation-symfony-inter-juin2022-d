@@ -1,0 +1,79 @@
+créer un nouveau projet annuaire
+
+deux tables 
+profil 
+adresse 
+
+cd ..
+symfony new annuaire
+cd annuaire
+
+composer req orm 
+composer require form 
+composer require twig 
+composer require profiler debug --dev
+composer require maker --dev
+composer require annotations
+
+symfony server:start
+
+http://localhost:8000
+
+-----------------------
+
+créer deux entités
+
+Article 
+titre string de 200 lettres max
+contenu text 
+
+Commentaire
+email  string de 200 lettres max
+contenu text
+
+liaison entre l'entité Article et l'entité Commentaire 
+
+liaison entre des tables dans un base de données 
+
+tant que il n'y a pas eu de migration // création de table dans la base 
+modifier manuelle les fichiers sans problème 
+attention aux noms des fichiers // class 
+
+symfony console make:entity --regenerate
+
+-----------------------------------
+
+Doctrine il existe 4 types de relations entre les entités
+
+OneToOne
+ManyToOne
+OneToMany 
+ManyToMany 
+
+
+Un article possède PLUSIEURS commentaires <====== 
+ET 
+Un commentaire ne peut être associé que par UN article 
+
+
+dans l'Entité Article on va avoir un champ qui va avoir l'annotation de type #[ORM\OneToMany()]
+
+
+ManyToOne
+OneToMany
+
+
+décommenter sqlite dans .env 
+
+symfony console doctrine:database:create
+
+symfony console make:entity --regenerate
+
+symfony console make:migration
+
+symfony console doctrine:migrations:migrate
+
+INSERT INTO article (titre , contenu) 
+VALUES
+("article 1", "lorem ipsum"),
+("article 2", "lorem ipsum");

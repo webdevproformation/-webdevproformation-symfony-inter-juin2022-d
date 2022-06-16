@@ -1,0 +1,53 @@
+Symfony => framework 
+
+librairie et une manière de travailler 
+
+PHP (et Poo)
+
+install symfony => organisation (dossier / fichier)
+
+dossier src 
+
+
+https://localhost:8000 => page d'accueil
+https://localhost:8000/HomeController.php => marche ... page d'accueil
+
+relier https://localhost:8000 à controller 
+
+"https://localhost:8000/new-categorie"
+
+// CRUD ajouter modifier supprimer lire => table dans une base de données 
+
+avant de faire une insertion dans une table 
+
+vérification 
+
+formulaire 
+    nom
+    age 
+
+vérifications 
+if(!empty($_POST)){
+    if(isset($_POST["nom"]) && strlen($_POST["nom"]) > 0 &&
+    isset($_POST["age"]) && is_numeric($_POST["age"]) &&  (int)$_POST["age"] > 0 && (int)$_POST["age"] < 100){
+
+        // insertion / update dans la base de données 
+    }
+}
+
+
+très important pour la cohérence des données stockées dans vos tables 
+
+$form->handleRequest($request); 
+
+if($form->isSubmitted() && $form->isValid()){
+    // insertion / update dans la base de données 
+}
+
+// utiliser des annotations au niveau des propriétés dans l'Entité
+#[]
+
+ajouter la fonctionnalité
+
+composer require symfony/validator doctrine/annotations
+

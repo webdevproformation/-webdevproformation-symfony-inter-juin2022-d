@@ -1,0 +1,46 @@
+cas pratique 
+
+créer une entité Auteur 
+
+dispose de 3 propriétés 
+nom texte de 30 lettres
+role admin / redacteur 
+actif boolean true / false 
+
+symfony console make:migration
+
+regarde vos class Entity <=====> base et table 
+déterminer la liste des requêtes SQL à affecter pour que ça soit à jour ET casse pas les datas dans la base 
+
+symfony console doctrine:migrations:migrate 
+
+------------------
+
+supprimer tout 
+la base et ses tables 
+symfony console doctrine:database:create
+symfony console doctrine:database:drop --force
+
+DROP DATABASE dase.db 
+
+supprimer les fichiers de migrations et les recréer
+
+php bin/console make:migration
+
+symfony console doctrine:migrations:migrate
+
+
+------------------
+
+créer un formulaire pour ajouter des auteurs en base de données 
+
+Auteur => Article => Commentaire 
+
+UN Auteur peut créer de PLUSIEURS articles  OneToMany
+UN article ne peut petre créer que par UN Auteur ManyToOne 
+
+=> relation manuellement
+=> php bin/console make:entity 
+
+=> formulaire qui va permettre créer un article pour un auteurs
+=> créer un auteur de l'auteur 1 , 2 ....

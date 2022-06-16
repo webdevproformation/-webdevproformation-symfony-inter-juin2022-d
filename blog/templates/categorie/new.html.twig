@@ -1,0 +1,17 @@
+{% extends "front.html.twig" %}
+
+{% block titre %} créer une nouvelle catégorie {% endblock %}
+
+{% block body %}
+    <main class="container">
+        {% if id is defined %}
+            <h1> modifier la catégorie numéro {{ id }} </h1>
+        {% else %}
+            <h1>créer une nouvelle catégorie</h1>
+        {% endif %}
+        {{ form(form) }}
+        {% for message in  app.flashes("message") %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    </main>
+{% endblock %}

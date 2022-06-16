@@ -1,0 +1,72 @@
+
+ATTENTION => 
+
+symfony console make:entity
+
+très utile => écrire pour vous un fichier => 
+MAIS si vous vous trompez d'une lettre dans ce formulaire => coquille dans votre structure de table 
+
+problème dans la base de données
+problème pour récupérer des informations ... 
+
+------------------
+
+modifier votre entité => MANUEL le fichier src/Entity/Article
+
+modifier propriété / modifier les annotations 
+si nécessaire modifier les setter et getter 
+
+------------------
+
+symfony console make:migration
+
+nouveau fichier de migration 
+
+------------------
+
+symfony console doctrine:migrations:migrate
+
+symfony console doctrine:query:sql "EXPLAIN article"
+symfony console doctrine:query:sql "PRAGMA table_info(article);"
+
+
+C:\Users\harri\Desktop\symfony\blog\var>sqlite3 data.sqlite
+SQLite version 3.38.5 2022-05-06 15:25:27
+Enter ".help" for usage hints.
+sqlite> .schema article
+CREATE TABLE article (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, titre VARCHAR(200) DEFAULT NULL, contenu CLOB NOT NULL, publie BOOLEAN NOT NULL, dt_creation DATETIME NOT NULL);
+
+-----------------------
+
+cas pratique 
+
+installer twig dans votre projet
+composer req twig
+
+installer les annotations 
+composer req annotations
+
+=> créer une premier page => 
+controller et route
+
+la page est accessible via l'adresse https://localhost:8000/
+=> en tête de page menu bootstrap 
+=> corps afficher les liste des articles stockés dans la table article 
+
+
+
+--------------
+
+créer une nouvelle page 
+
+la page est accessible via l'adresse https://localhost:8000/new 
+=> contient un formulaire bootstrap
+
+titre  input de type texte
+contenu  textarea
+publie case à cocher
+bouton de soumission 
+
+ajouter le lien de la page dans la barre de menu via le lien "créer un nouvel article"
+
+

@@ -1,0 +1,75 @@
+recréer un nouveau projet avec une base de données 
+
+composer require orm # doctrine 
+composer req maker --dev 
+choisir un système de gestion de base de données (SGBD)
+- .env => choisir le système de gestion de base de données
+(1ère fois créer la base de données )
+- symfony console doctrine:database:create
+-------------------
+Entité 
+- symfony console make:entity => Entité
+- conseil => allez regarder le fichier src/Entity/Article.php 
+-------------------
+Migration 
+-symfony console make:migration 
+-------------------
+Exécuter la migration (modifier la structure de la base de données)
+- symfony console doctrine:migrations:migrate
+
+regarder le contenu de la table / exécuter des requêtes SQL 
+INSERT
+DELETE
+SELECT 
+UPDATE
+symfony console list  doctrine
+
+symfony console doctrine:query:sql "DELETE FROM article WHERE id = 3"
+
+
+--------------------
+
+formulaire 
+
+composer req form 
+
+dans le Controller vous avez des méthodes 
+
+public function formulaire (Request $request, ManagerRegistry $doctrine ){
+    $article = new Article() // créer une entité vide 
+
+    $form = $this->createFormBuilder($article) // associé à notre builder de formulaire 
+                // lister les champs à insérer dans le formulaire 
+                ->add("titre" , null, ["label" => "saisir le titre"]) 
+                ->add()  
+                ->add() 
+                ->add("valider" , SubmitType::class) //bouton 
+                // générer l'objet formulaire 
+                ->getForm();
+
+    $form->handleRequest($request); // associer $_POST avec le formulaire
+
+    if($form->isSubmitted() && $form->isValid()){
+        // alors INSERT dans la table article
+        $em = $doctrine->getManager(); // entity manager INSERT 
+        $em->persist($article); // requete INSERT crééé
+        $em->flush(); // exécuter la requête INSERT 
+    }
+
+    return $this->render("dossier/fichier.html.twig", ["formTata" => $form->createView() ] );
+}
+
+
+
+dans le template 
+{{ form(formTata) }} => $_POST => dans $request
+
+
+cas pratique :
+
+// dans le projet blog => 
+créer une nouvelle entité Catégorie
+nom  => maximum 100 lettres
+description  => zone de texte importante
+
+// créer un formulaire permettant d'ajouter de nouvelles catégories 

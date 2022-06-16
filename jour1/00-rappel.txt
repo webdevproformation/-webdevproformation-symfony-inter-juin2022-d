@@ -1,0 +1,200 @@
+rappel la semaine dernière ??? 
+
+base de données 
+Doctrine (symfony communique avec une base de données SQLITE / MySQL / PostGRE)
+
+ORM : Object Relational Mapper 
+
+composer require orm 
+
+doctrine installé (vendor) / yaml dédié config / ajouter des nouvelles lignes dans le fichier .env  
+
+.env décommenter une ligne 
+
+------------------------
+
+créer la base de données : 
+
+symfony console doctrine:database:create
+symfony console d:database:create
+symfony console d:d:c
+php bin/console d:d:c
+
+------------------------
+
+installé sur Visual Studio outil => visualiser le contenu de fichier sqlite 
+
+------------------------
+
+Entité => fichier => src/Entity
+
+Exo.php 
+Test.php 
+
+class ===== table
+
+annotation       ===== propriété des colonnes = type / taille / auto incrément ...
+proprieté privée ===== colonne de la table
+
+setter et getter
+
+symfony console make:entity --regenerate setter et getter
+
+
+symfony console make:entity 
+symfony console m:e
+
+------------------------
+
+migration class => requête structure de la table 
+
+symfony console make:migration => fichier de migration 
+requête SQL qui permet de définir les colonnes d'une table 
+
+CREATE TABLE .... (
+    col prop
+)
+
+ALTER TABLE 
+
+------------------------
+
+exécuter => les fichiers de migration (créer vraiment dans la base de données choisie)
+
+symfony console doctrine:migrations:migrate
+symfony console d:m:m
+
+regarder la liste des tables dans l'extension Visual Studio Code 
+
+
+------------------------
+
+symfony new <nom_projet>
+
+créer un nouveau projet dans le nouveau dossier symfony 
+
+nom du projet => blog 
+créer une base de données => data.db => sqlite 
+contient des articles  => table article 
+id INT autoincrement non null clé primaire
+titre VARCHAR de 200
+contenu text 
+publie boolean
+dt_creation datetime 
+
+insérer via une requête SQL 2 article dans cette table !
+
+install : (créer le projet et ses dépendances + démarré)
+
+symfony new blog # créer le projet
+cd blog # se déplacer dans le projet 
+composer req orm # installer doctrine
+=> ?? installer un config docker (installer la base de données)
+=> non
+composer req maker --dev  # installer l'outil qui permet de créer entité / migration en développement
+
+lancer le serveur de développement local 
+
+symfony server:start 
+php -S localhost:8000 -t public
+
+http://localhost:8000
+
+-----------------------------------
+
+tls => Transport Layout Secure => mettre en place une connexion https entre projet et navigateur
+
+local = > symfony server:ca:install
+installer sur votre serveur local un certificat 
+symfony server:start 
+
+en production (sur hébergeur) => menu de gestion du site 
+activer l'option 
+
+
+nuxit - pack etudiant  => https://store.nuxit.com/?plan=5631&step=1
+(15€ / an)
+
+https://www.o2switch.fr/hebergement-illimite/ => 72€ TTC /an 
+
+php 8
+ssh => saisir les lignes de commande de ordinateur => pour modifier le serveur offre pro hosting => 80 €
+
+OVH
+1&1
+o2switch 
+nuxit
+hostinger 
+
+Hébergement Premium 
+
+
+-----------------------
+
+modifier le fichier .env
+
+enlever le # devant DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+mettre un # devant DATABASE_URL="postgresql://symfony:ChangeMe@127.0.0.1:5432/app?serverVersion=13&charset=utf8"
+
+=> choisi de travailler sur une bdd sqlite 
+
+------------------
+
+créer le fichier qui va contenir notre base de données :
+
+lancer un nouveau terminal 
+cd blog
+symfony console doctrine:database:create
+symfony console d:d:c
+
+----------------
+
+
+symfony server:start 
+symfony serve
+symfony server:start  -d 
+
+----------------
+
+créer une Entité => class ===> table // propriété ===> colonne // annotation ==> caractères des colonnes 
+
+symfony console make:entity 
+
+
+créer un nouveau projet dans le nouveau dossier symfony 
+
+nom du projet => blog 
+créer une base de données => data.db => sqlite 
+contient des articles  => table article 
+id INT autoincrement non null clé primaire => par défaut elle est créée
+titre VARCHAR de 200
+contenu text 
+publie boolean
+dt_creation datetime 
+
+insérer via une requête SQL 2 article dans cette table !
+
+
+------------------------
+
+transformer entité => migrate transforme class => requete SQL CREATE TABLE
+
+créer une migration 
+
+symfony console make:migration
+
+------------------------
+
+exécuter le fichier de migration => créer vraiment la table dans la base de données sqlite 
+
+symfony console doctrine:migrations:migrate
+
+
+INSERT INTO article (titre, contenu, publie, dt_creation) VALUES ("article 1" , "lorem ipsum", TRUE , "2022-06-13 11:00:00"), ("article 2" , "lorem ipsum", FALSE , "2022-06-13 12:00:00");
+
+=> formulaire + CRUD 
+
+=> symfony console doctrine:query:sql "TRUNCATE article"
+=> symfony console doctrine:query:sql "DELETE FROM article"
+
+=> symfony console doctrine:query:sql "INSERT INTO article (titre, contenu, publie, dt_creation) VALUES ('article 1' , 'lorem ipsum', TRUE , '2022-06-13 11:00:00'), ('article 2' , 'lorem ipsum', FALSE , '2022-06-13 12:00:00')"

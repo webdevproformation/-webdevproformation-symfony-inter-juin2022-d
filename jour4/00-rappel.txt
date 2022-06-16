@@ -1,0 +1,56 @@
+fin de la première partie de la formation :
+
+Constrainte 
+
+Entity Toto 
+
+
+#[ORM\Column(type:"string")] => doctrine de pouvoir créer les tables 
+#[Assert\Length] => permet d'ajouter des vérifications (Constraints) supplémentaire 
+                => AVANT INSERT et UPDATE vérification approfondie des données que l'on va insérer dans notre requête 
+private $nom
+
+#[ORM\Column(type:"boolean")]
+private $publie
+
+
+--------
+
+étant donné que vous basée les form sur les entités => toutes les vérifications mises dans l'entité vont impacté tous les formulaires 
+$form = $this->createForm(TotoType::class)
+
+$form->isValid()
+
+--------
+
+{{ form(....) }} => champ qui vont afficher les messages d'erreurs directement dans la vue 
+
+--------------------
+https://symfony.com/doc/current/validation.html
+
+Constraints =
+Assert\Length => compter le nombre de lettre min / max 
+Assert\GreaterThan() => récupérer un chiffre entier <
+Assert\LessThan()  = >
+Assert\Type()   => date une date au format valid 
+Assert\PositiveOrZero() >=
+Assert\Email // assert vous pouvez ne rien mettre comme paramètre (pas besoin de mettre de ( ))
+Assert\Regex 
+
+40 règles d'assertion contenant plein d'options => exploitation (qualité des données dans le futur )
+Sécurité => faire en sorte que l'utilisateur fasse ce qui est attendu par le concepteur 
+
+=> 
+--------------------
+
+
+{{ asset() }}
+
+composer req symfony/asset
+
+--------------------
+
+début de la deuxième partie 
+
+relation entre entité
+

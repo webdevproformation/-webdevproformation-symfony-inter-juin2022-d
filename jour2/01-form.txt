@@ -1,0 +1,55 @@
+An exception occurred while executing a query: SQLSTATE[23000]: Integrity constraint violation: 19 NOT NULL constraint failed: categorie.nom
+
+une erreur est apparue dans la requête => au moment où vous avez cliquer sur le bouton Enregistrer 
+INSERT INTO categorie (nom, description) VALUES (null, "....");
+
+=> quand vous avez utilisé la commande symfony console make:entity 
+
+nom
+string
+100
+nullable yes / no => no
+
+=> message erreur => Integrity constraint violation
+
+------------------
+
+=> créer un formulaire directement DANS le controller
+=> créer un nouvel Enregistrement
+=> mettre à jour enregistrement existante update 
+
+=> sortir la logique de création du formulaire dans le controller dans un class dédiée
+
+créer un EntiteType 
+
+symfony console make:form 
+
+CategorieType => obligatoirement suffixé par Type
+
+est ce que vous souhaitez lier votre Formulaire à une entité 
+Categorie
+
+=> créer un nouveau fichier src/Form/CategorieType.php
+
+-----------------------
+
+cas pratique :
+créer un ArticleType (class qui va gérer les formulaires basés sur l'entité Article )
+utiliser cet ArticleType pour générer le formulaire permettant de créer de nouveaux articles 
+
+
+symfony console make:form ArticleType
+
+INSERT 
+SELECT 
+
+changer le menu => 
+Gestion des Catégories
+   - Liste des Catégories
+   - Créer une nouvelle catégorie 
+
+=> cas pratique mettre en place dans la barre de menu
+un menu déroulant qui contient ces valeurs
+Gestion des Catégories
+   - Liste des Catégories
+   - Créer une nouvelle catégorie 

@@ -1,0 +1,21 @@
+https://github.com/webdevproformation/symfony-inter-juin2022-d
+
+
+---------------------
+
+créer une nouvelle page 
+accessible via l'adresse suivante https://localhost:8000/categorie
+
+afficher un tableau qui va lister toutes les catégories présentes dans la base de données 
+<table>
+</table>
+
+https://getbootstrap.com/docs/5.2/content/tables/
+
+cas pratique 
+réaliser le CRUD pour l'entité Article 
+Read
+Create
+
+=> Update et le Delete pour les Articles 
+
