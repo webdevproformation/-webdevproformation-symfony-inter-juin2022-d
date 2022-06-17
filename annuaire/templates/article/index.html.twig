@@ -10,6 +10,15 @@
                 <h2>{{ article.titre }}</h2>
                 <p>{{ article.contenu }}</p>
                 <p>écrit par : {{ article.auteur.nom }}</p>
+                <p>associé à la catégorie :
+                
+                 {% if article.categorie %} 
+                    <span class='badge bg-success'>{{ article.categorie.libelle }}</span>
+                 {% else %}
+                    <span class="badge bg-danger">pas de catégorie</span>
+                 {% endif %} 
+
+                </p>
                 <div>
                     <a href="{{ path("article_single" , {"id" : article.id }) }}"  class="btn btn-outline-dark btn-sm">Laisser un commentaire</a>
                 </div>

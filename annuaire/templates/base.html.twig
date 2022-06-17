@@ -8,6 +8,30 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
     </head>
     <body>
+        <header class="bg-primary">
+            <nav class="navbar navbar-expand navbar-dark container px-3">
+                <a href="{{ path("article_home") }}" class="navbar-brand">Annuaire</a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="{{ path("article_home") }}" class="nav-link">Accueil</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link  dropdown-toggle" id="back-office" data-bs-toggle="dropdown" aria-expanded="false">Gestion</a>
+                        <ul class="dropdown-menu" aria-labelledby="back-office">
+                            <li><a href="{{ path("auteur_new") }}" class="dropdown-item">Créer un auteur</a></li>
+                            <li><a href="{{ path("categorie_new") }}" class="dropdown-item">Créer une catégorie</a></li>
+                            <li><a href="{{ path("article_new") }}" class="dropdown-item">Créer un article</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
         {% block body %}{% endblock %}
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script> 
+
     </body>
 </html>

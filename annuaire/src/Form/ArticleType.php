@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Auteur;
+use App\Entity\Categorie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,6 +23,10 @@ class ArticleType extends AbstractType
                 "choice_label" => "nom"      // préciser la colonne qui va servir dans le menu déroulant
                 // mettre à jour les setter et getter (mis manuellement)
                 // php bin/console make:entity --regenerate
+            ])
+            ->add("categorie" , EntityType::class , [
+                "class" => Categorie::class,
+                "choice_label" => "libelle"
             ])
 
             ->add("save", SubmitType::class)

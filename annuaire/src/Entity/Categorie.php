@@ -22,7 +22,7 @@ class Categorie
     private $libelle;
 
     #[ORM\Column(type: 'date')]
-    #[Assert\Type("date")]
+    #[Assert\Type("datetime")]
     private $dt_creation;
 
     // UNE Catégorie peut être associée à PLUSIEURS articles

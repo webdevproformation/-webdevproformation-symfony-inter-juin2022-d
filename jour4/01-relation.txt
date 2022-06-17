@@ -101,4 +101,33 @@ un article n'a 1 seule catégorie
 
 mettre à jour la structure des tables dans la base de données 
 
+cas pratique : 
 
+1 créer une formulaire pour catégorie 
+=> créer le formulaire de création de catégorie 
+2 ajouter un menu déroulant  dans le formulaire de création d'article (afficher les catégories disponibles)
+
+3 afficher la catégorie dans la page où il y a la liste des articles 
+
+
+------------------------
+
+dans la page article/{id}
+
+pouvez vous ajouter la catégorie associée à l'article dans la page single  ! 
+
+
+------------------------
+
+barre de menu 
+
+lien Accueil => affiche la liste des articles 
+
+gestion (contenant un menu déroulant)
+    - créer un auteur
+    - créer une catégorie 
+    - créer un article 
+
+
+
+   

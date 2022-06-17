@@ -8,6 +8,11 @@
             <article class="col-12">
                 <p>{{ article.contenu }}</p>
                 <p>écrit par : {{ article.auteur.nom }}</p>
+                {% if article.categorie %}
+                    <span class="badge bg-success">{{ article.categorie.libelle }}</span>
+                {% else %}
+                    <span class="badge bg-danger">pas de catégorie associée</span>
+                {% endif %}
             </article>
     </section>
     <hr>

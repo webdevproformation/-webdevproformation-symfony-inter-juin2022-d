@@ -1,0 +1,96 @@
+Relation
+
+base de données découper les informations à stocker en tables 
+
+- éviter de se répéter
+- cohérence des données 
+
+MAIS ça devient plus compliqué de les utiliser => JOINTURE / RELATIONS 
+
+UN .ETUDIANT.. est associé à PLUSIEURS ..NOTE
+UNE NOTE est associé à UN SEUL ETUDIANT 
+
+1 - n => cardinalité 
+
+OneToMany 
+ManyToOne 
+
+Etudiant 
+#[ORM\OneToMany(targetEntity=Note::class , mappedBy:"etudiant")] // singulier
+private $notes // pluriel
+
+Note
+#[ORM\ManyToOne(targetEntity=Etudiant::class , inversedBy:"notes")]
+private $etudiant ;
+
+symfony console make:migration => clé secondaire 
+
+symfony console doctrine:migrations:migrate
+
+
+----------------
+
+SELECT 
+
+$etudiant = $doctrine->getRepository(Etudiant::class)->find(1) // 1 etudiant et ses notes associées
+
+{{etudiant.nom}}
+{% for notes in etudiant.notes %}
+{% endfor %}
+
+$etudiants = $doctrine->getRepository(Etudiant::class)->findAll() // tous les etudiants et leurs notes associées
+
+{% for etudiant in etudiants %}
+    {{etudiant.nom}}
+    {% for notes in etudiant.notes %}
+    {% endfor %}
+{% endfor %}
+
+---------------
+
+INSERT 
+
+je veux ajouter une note pour l'etudiant numéro xxx
+
+=> deux cas de figures 
+
+------------------------
+
+=> possibilité récupérer l'id de l'etudiant directement dans le controller 
+
+$etudiant = $doctrine->getRepository(Etudiant::class)->find(1)
+
+$note = new Note();
+$note->setEtudiant($etudiant) /// !!!!!
+
+$form = $this->createForm(NoteType::class, $note);
+
+$form->handleRequest($request);
+
+// soumis et valid 
+$em = $doctrine->getManager()
+$em->persist($em);
+$em->flush();
+
+------------------------
+
+ajouter dans le formulaire d'ajoute de note un menu déroulant pour sélectionner l'étudiant concerné 
+
+NoteType 
+
+
+ buildForm(){
+    $builder
+        ->add()
+        ->add()
+        ->add("etudiant" , EntityType::class , [ "class" => Etudiant::class , "choice_label" => "nom" ])
+        ->add()
+
+ }
+
+ // dans le controller et dans les fichiers de la vue le code à saisir est identique à INSERT sans aucune relation 
+
+
+
+
+
