@@ -1,0 +1,43 @@
+
+
+en html => dans les formulaires 
+
+<input type="file"> => comment ajouter des champs pour uploader des fichiers 
+
+dans le formulaire de création d'article 
+
+en même temps stocker le nom de l'image dans une Entité à part Image 
+
+Créer une nouvelle entité => Image 
+
+url => string maximum 255 caractères
+
+// associer image à notre article 
+UNE Image associée pour UN Article
+UN Article associé à UNE IMAGE 
+
+=> OneToOne  
+
+=> Entité Article 
+
+#[ORM\OneToOne(targetEntity:Image::class , mappedBy:"article")]
+    private $image; 
+
+
+dans Entité Image 
+
+#[ORM\OneToOne(targetEntity:Article::class, inversedBy:"image")]
+    private $article ; 
+
+symfony console make:entity --regenerate
+
+symfony console make:migration
+
+symfony console doctrine:migrations:migrate
+
+
+cas pratique 
+
+ajouter la capacité d'ajouter une image lorsque l'on créer un nouveau profil Auteur 
+
+vous devez utiliser entité image pour stocker l'image associé au profil Auteur 

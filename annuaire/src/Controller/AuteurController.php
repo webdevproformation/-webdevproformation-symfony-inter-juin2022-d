@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Auteur;
+use App\Entity\Image;
 use App\Form\AuteurType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,17 @@ class AuteurController extends AbstractController{
         $form = $this->createForm(AuteurType::class , $auteur);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+
+            $file = $request->files->get("auteur")["photo_profil"];
+            $ou = $this->getParameter("upload_directory");
+            $nom_fichier = md5(uniqid()) . "." . $file->guessExtension();
+            $file->move( $ou , $nom_fichier);
+
+            $image = new Image();
+            $image->setUrl($nom_fichier);
+
+            $auteur->setImage($image);
+
             $em = $doctrine->getManager();
             $em->persist($auteur);
             $em->flush();

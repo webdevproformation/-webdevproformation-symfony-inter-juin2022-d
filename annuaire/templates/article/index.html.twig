@@ -8,6 +8,11 @@
         {% for article in articles %}
             <article class="col-4">
                 <h2>{{ article.titre }}</h2>
+                {% if article.image %}
+                    <img src="{{ asset("upload/" ~  article.image.url) }}" alt="" class="img-fluid">
+                {% else %}
+                    <img src="https://via.placeholder.com/400x200" alt="" class="img-fluid">
+                {% endif %}
                 <p>{{ article.contenu }}</p>
                 <p>écrit par : {{ article.auteur.nom }}</p>
                 <p>associé à la catégorie :

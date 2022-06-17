@@ -2,7 +2,11 @@
 
 {% block body %}
 <div class="container">
-    <h1>Créer un nouvel article</h1>
+    {% if id_article is defined %}
+        <h1>Mettre à jour l'article numéro {{ id_article }}</h1>
+    {% else %}
+        <h1>Créer un nouvel article</h1>
+    {% endif  %}
     {{  form(form) }}
     {# /article/new #}
 </div>

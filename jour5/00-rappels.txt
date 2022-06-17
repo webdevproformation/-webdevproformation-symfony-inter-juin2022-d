@@ -92,5 +92,43 @@ NoteType
 
 
 
+// cas pratique 
+
+dans la page ajouter une nouveau lien qui va permettre de mettre à jour un article 
+
+=> un de ses champs 
+
+=> Controller Article 
+=> créer une nouvelle méthode update 
+=> requête pour récupérer l'article existante 
+=> afficher l'article avec les données => dans une formulaire 
+
+=> créer un formulaire => appeler dans une vue 
+
+
+article associé à un auteur 
+
+supprime un article => (automatiquement aussi les commentaires )
+
+supprime un auteur => supprimer les articles qui sont associés => supprimer les commentaires qui sont associés
+
+effet de suppressions en CASCADE => 
+ entité Article 
+
+------------------------
+
+cas pratique :
+
+Ajouter un nouveau lien dans la page single 
+supprimer l'article concerné 
+
+vérifier que les commentaires associés sont bien eux aussi supprimé (via le système de CASCADE de SQL )
+
+=> CRUD avec entités associées 
+
+------------------------
+
+OneToOne / image // session ... 
+
 
 

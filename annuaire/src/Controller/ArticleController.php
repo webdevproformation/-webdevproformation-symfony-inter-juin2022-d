@@ -4,10 +4,12 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Auteur;
 use App\Entity\Commentaire;
+use App\Entity\Image;
 use App\Form\ArticleType;
 use App\Form\CommentaireType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,15 +18,29 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/article")]
 class ArticleController extends AbstractController{
 
-   
-
-
     #[Route("/new" , name:"article_new")] // /article/new
     public function new(Request $request , ManagerRegistry $doctrine): Response {
         $article = new Article();
         $form = $this->createForm(ArticleType::class , $article);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+
+            // récupérer mon image 
+            $file = $request->files->get("article")["image_une"];
+
+            // déplacer pour la mettre dans un dossier upload qui va être situé dans le dossier public 
+            
+            $adresse_upload = $this->getParameter("upload_directory");
+            $nomFichier = md5(uniqid()) . "." . $file->guessExtension();
+            $file->move($adresse_upload , $nomFichier);
+
+            // enregistrement en base de données
+            $image = new Image();
+            $image->setUrl($nomFichier);// cascade persist 
+            $article->setImage($image);
+
+            // dd($file); 
+
             $em = $doctrine->getManager();
             $em->persist($article);
             $em->flush();
@@ -78,5 +94,61 @@ class ArticleController extends AbstractController{
         ]);
     }
 
+    #[Route("/update/{id}", name:"article_update")]
+    public function update( $id, ManagerRegistry $doctrine , Request $request) :Response{
+
+        $article = $doctrine->getRepository(Article::class)->find($id);
+
+        $form = $this->createForm(ArticleType::class , $article);
+       
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+             // récupérer mon image 
+             $file = $request->files->get("article")["image_une"];
+
+             // déplacer pour la mettre dans un dossier upload qui va être situé dans le dossier public 
+             
+             $adresse_upload = $this->getParameter("upload_directory");
+             $nomFichier = md5(uniqid()) . "." . $file->guessExtension();
+             $file->move($adresse_upload , $nomFichier);
+ 
+             // enregistrement en base de données
+             $image = new Image();
+             $image->setUrl($nomFichier);// cascade persist 
+             $article->setImage($image);
+
+
+            $em = $doctrine->getManager();
+            $em->persist($article);
+            $em->flush();
+            return $this->redirectToRoute("article_home");
+        }
+
+        return $this->render("article/new.html.twig", [
+            "form" => $form->createView(),
+            "id_article" => $article->getId()
+        ]);
+    }
+
+    #[Route("/delete/{id}" , name:"article_delete")]
+    public function delete($id , ManagerRegistry $doctrine):RedirectResponse{
+
+        $articleASupprimer = $doctrine->getRepository(Article::class)->find($id);
+
+        if($articleASupprimer === null){
+            return $this->redirectToRoute("article_home");
+        }
+
+        $em = $doctrine->getManager();
+        $em->remove($articleASupprimer);
+        $em->flush();
+
+        return $this->redirectToRoute("article_home");
+        /**
+            dans le fichier article/single.html.twig   
+        <a href="{{ path("article_delete", {"id" : article.id}) }}" class="btn btn-danger my-3">supprimer l'article</a>
+         */
+    }
 
 }

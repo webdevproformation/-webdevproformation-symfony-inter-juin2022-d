@@ -39,6 +39,9 @@ class Auteur
         return [ "admin" , "redacteur" ];
     }
 
+    #[ORM\OneToOne(targetEntity:Image::class, inversedBy:"auteur" , cascade:["persist"] )]
+    private $image;
+
     #[ORM\Column(type: 'boolean')]
     private $actif;
 
@@ -114,6 +117,28 @@ class Auteur
                 $article->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setAuteur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getAuteur() !== $this) {
+            $image->setAuteur($this);
+        }
+
+        $this->image = $image;
 
         return $this;
     }

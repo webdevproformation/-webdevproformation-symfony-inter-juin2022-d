@@ -7,6 +7,7 @@ use App\Entity\Auteur;
 use App\Entity\Categorie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,7 +29,10 @@ class ArticleType extends AbstractType
                 "class" => Categorie::class,
                 "choice_label" => "libelle"
             ])
-
+            ->add("image_une" , FileType::class , [
+                        "mapped" => false , // champ non  associé à une propriété de notre entité Article
+                        "label" => "image à la une de l'article"
+                        ]) 
             ->add("save", SubmitType::class)
         ;
     }

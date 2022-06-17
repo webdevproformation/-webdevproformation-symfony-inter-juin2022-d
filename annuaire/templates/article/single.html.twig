@@ -6,13 +6,25 @@
     <h1>{{ article.titre }}</h1>
     <section class="row">
             <article class="col-12">
+                {% if article.auteur.image %}
+                <img src="{{  asset("upload/"~ article.image.url ) }}" alt="" class="img-fluid">
+               {% endif %}
                 <p>{{ article.contenu }}</p>
-                <p>écrit par : {{ article.auteur.nom }}</p>
+                <p>écrit par : {{ article.auteur.nom }} 
+               {% if article.auteur.image %}
+               <img src="{{  asset("upload/"~ article.auteur.image.url ) }}" alt="" width="50" height="50" class="rounded-circle">
+               {% endif %}
+                </p>
                 {% if article.categorie %}
                     <span class="badge bg-success">{{ article.categorie.libelle }}</span>
                 {% else %}
                     <span class="badge bg-danger">pas de catégorie associée</span>
                 {% endif %}
+                <div>
+                    <a href="{{ path("article_update", {"id" : article.id}) }}" class="btn btn-info my-3">mettre à jour l'article</a>
+                    - 
+                    <a href="{{ path("article_delete", {"id" : article.id}) }}" class="btn btn-danger my-3">supprimer l'article</a>
+                </div>
             </article>
     </section>
     <hr>
@@ -29,7 +41,7 @@
                     publié par : {{ commentaire.email }}
                 </div>
                 <div class="col-10">
-                    {{  commentaire.contenu }}
+                    {{  commentaire.contenu }} - id {{ commentaire.id }}
                 </div>
             {% else %}
                 <p> pas de commentaire pour l'instant</p>
